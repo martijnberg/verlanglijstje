@@ -1,5 +1,6 @@
 // frontend/src/pages/OtherLists.jsx
 import { useEffect, useState } from "react";
+import ItemCard from "../components/ItemCard";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -21,7 +22,6 @@ export default function OtherLists({ currentUser }) {
       const data = await res.json();
       setUsers(data);
 
-      // eventueel automatisch de eerste selecteren
       if (data.length > 0) {
         setSelectedUser(data[0]);
       }
@@ -66,7 +66,6 @@ export default function OtherLists({ currentUser }) {
       return;
     }
 
-    // state updaten
     setItems((prev) =>
       prev.map((item) =>
         item.id === itemId
@@ -100,107 +99,99 @@ export default function OtherLists({ currentUser }) {
   }
 
   return (
-    <div className="flex flex-col md:flex-row gap-6">
-      {/* Zijbalk met users */}
-      <aside className="w-full md:w-64 bg-slate-800 rounded-lg p-4 h-fit">
-        <h2 className="text-lg font-semibold mb-3">Lijstjes van:</h2>
-        {users.length === 0 && (
-          <p className="text-slate-300 text-sm">
-            Geen andere gebruikers gevonden.
-          </p>
-        )}
-        <ul className="space-y-2">
-          {users.map((u) => (
-            <li key={u.id}>
-              <button
-                onClick={() => setSelectedUser(u)}
-                className={`w-full text-left px-3 py-2 rounded text-sm md:text-base ${
-                  selectedUser && selectedUser.id === u.id
-                    ? "bg-blue-600"
-                    : "bg-slate-700 hover:bg-slate-600"
-                }`}
-              >
-                {u.displayName}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </aside>
+    <div className="min-h-screen bg-slate-900 text-white p-6">
+      <div className="max-w-xl mx-auto space-y-6">
+        <h1 className="text-3xl font-bold mb-2">Andermans lijstjes 🎁</h1>
+        <p className="text-slate-300 text-sm">
+          Kies iemand en bekijk of claim cadeautjes van hun lijst.
+        </p>
 
-      {/* Items van geselecteerde user */}
-      <section className="flex-1">
-        {selectedUser ? (
-          <>
-            <h2 className="text-2xl font-semibold mb-4">
-              Lijst van {selectedUser.displayName}
-            </h2>
-
-            {items.length === 0 && (
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+          {/* Zijbalk met users */}
+          <aside className="w-full md:w-64 bg-slate-800 rounded-lg p-4 h-fit">
+            <h2 className="text-lg font-semibold mb-3">Lijstjes van:</h2>
+            {users.length === 0 && (
               <p className="text-slate-300 text-sm">
-                Nog geen items op dit lijstje.
+                Geen andere gebruikers gevonden.
               </p>
             )}
-
-            <div className="space-y-4">
-              {items.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white/5 border border-white/10 rounded-xl p-4 shadow-sm
-                             hover:shadow-md transition-shadow backdrop-blur-sm"
-                >
-                  <h3 className="text-lg md:text-xl font-semibold">
-                    {item.name}
-                  </h3>
-                  {item.description && (
-                    <p className="text-slate-300 text-sm md:text-base">
-                      {item.description}
-                    </p>
-                  )}
-                  {item.url && (
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-blue-400 underline text-xs md:text-sm"
-                    >
-                      Link
-                    </a>
-                  )}
-
-                  <div className="mt-3 flex flex-wrap items-center gap-2">
-                    {/* Claim / Unclaim logica */}
-                    {!item.isClaimed && (
-                      <button
-                        onClick={() => handleClaim(item.id)}
-                        className="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-xs md:text-sm"
-                      >
-                        Ik koop dit 🎁
-                      </button>
-                    )}
-
-                    {item.isClaimed && item.canUnclaim && (
-                      <button
-                        onClick={() => handleUnclaim(item.id)}
-                        className="px-3 py-1 rounded bg-yellow-600 hover:bg-yellow-700 text-xs md:text-sm"
-                      >
-                        Ik koop dit toch niet meer
-                      </button>
-                    )}
-
-                    {item.isClaimed && !item.canUnclaim && (
-                      <p className="text-slate-300 text-xs md:text-sm">
-                        Dit item is al gereserveerd.
-                      </p>
-                    )}
-                  </div>
-                </div>
+            <ul className="space-y-2">
+              {users.map((u) => (
+                <li key={u.id}>
+                  <button
+                    onClick={() => setSelectedUser(u)}
+                    className={`w-full text-left px-3 py-2 rounded text-sm ${
+                      selectedUser && selectedUser.id === u.id
+                        ? "bg-blue-600"
+                        : "bg-slate-700 hover:bg-slate-600"
+                    }`}
+                  >
+                    {u.displayName}
+                  </button>
+                </li>
               ))}
-            </div>
-          </>
-        ) : (
-          <p className="text-slate-300">Kies iemand in de lijst hierboven.</p>
-        )}
-      </section>
+            </ul>
+          </aside>
+
+          {/* Items van geselecteerde user */}
+          <section className="flex-1 mt-4 md:mt-0">
+            {selectedUser ? (
+              <>
+                <h2 className="text-2xl font-semibold mb-4">
+                  Lijst van {selectedUser.displayName}
+                </h2>
+
+                {items.length === 0 && (
+                  <p className="text-slate-300 text-sm">
+                    Nog geen items op dit lijstje.
+                  </p>
+                )}
+
+                <div className="space-y-4">
+                  {items.map((item) => (
+                    <ItemCard
+                      key={item.id}
+                      title={item.name}
+                      description={item.description}
+                      url={item.url}
+                      linkLabel="Link"
+                    >
+                      {/* Claim / Unclaim logica als children */}
+                      {!item.isClaimed && (
+                        <button
+                          onClick={() => handleClaim(item.id)}
+                          className="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-xs"
+                        >
+                          Ik koop dit 🎁
+                        </button>
+                      )}
+
+                      {item.isClaimed && item.canUnclaim && (
+                        <button
+                          onClick={() => handleUnclaim(item.id)}
+                          className="px-3 py-1 rounded bg-yellow-600 hover:bg-yellow-700 text-xs"
+                        >
+                          Ik koop dit toch niet meer
+                        </button>
+                      )}
+
+                      {item.isClaimed && !item.canUnclaim && (
+                        <p className="text-slate-300 text-xs">
+                          Dit item is al gereserveerd.
+                        </p>
+                      )}
+                    </ItemCard>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className="text-slate-300 text-sm">
+                Kies iemand in de lijst hierboven.
+              </p>
+            )}
+          </section>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import ItemCard from "../components/ItemCard";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function MyList() {
@@ -108,34 +110,13 @@ export default function MyList() {
 
         <div className="space-y-4">
           {items.map((item) => (
-            <div
+            <ItemCard
               key={item.id}
-              className="bg-white/5 border border-white/10 rounded-xl p-4 shadow-sm
-                         hover:shadow-lg hover:-translate-y-0.5 transition-all
-                         backdrop-blur-sm"
-            >
-              <h2 className="text-lg font-semibold text-white tracking-wide">
-                {item.name}
-              </h2>
-
-              {item.description && (
-                <p className="text-slate-300 text-sm mt-1 leading-relaxed">
-                  {item.description}
-                </p>
-              )}
-
-              {item.url && (
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-400 underline
-                             text-xs mt-2"
-                >
-                  Bekijk link
-                </a>
-              )}
-            </div>
+              title={item.name}
+              description={item.description}
+              url={item.url}
+              linkLabel="Bekijk link"
+            />
           ))}
         </div>
       </div>
