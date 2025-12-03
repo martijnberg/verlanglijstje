@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <!-- Diepe gouden gradient -->
+    <linearGradient id="gold-body" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff4c2"/>
+      <stop offset="20%" stop-color="#f7d774"/>
+      <stop offset="50%" stop-color="#d7a734"/>
+      <stop offset="80%" stop-color="#b8860b"/>
+      <stop offset="100%" stop-color="#8d6300"/>
+    </linearGradient>
+
+    <!-- Glanzende highlights -->
+    <linearGradient id="gold-ribbon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8d5"/>
+      <stop offset="30%" stop-color="#f2c646"/>
+      <stop offset="70%" stop-color="#e2a501"/>
+      <stop offset="100%" stop-color="#be8100"/>
+    </linearGradient>
+
+    <!-- Lichtschijn rondom — over the top -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Gloed -->
+  <rect width="128" height="128" rx="20" fill="url(#gold-body)" filter="url(#glow)"/>
+
+  <!-- Cadeau-box -->
+  <rect x="20" y="48" width="88" height="60" rx="10" fill="url(#gold-body)" stroke="#b8860b" stroke-width="3"/>
+
+  <!-- Verticale lint -->
+  <rect x="58" y="48" width="12" height="60" rx="4" fill="url(#gold-ribbon)" />
+
+  <!-- Horizontale lint -->
+  <rect x="20" y="70" width="88" height="12" rx="4" fill="url(#gold-ribbon)" />
+
+  <!-- Strik links -->
+  <path d="M58 48
+           C 36 20, 12 20, 20 40
+           C 26 55, 48 60, 58 50 Z"
+        fill="url(#gold-ribbon)" stroke="#9c6d00" stroke-width="2"/>
+
+  <!-- Strik rechts -->
+  <path d="M70 48
+           C 92 20, 116 20, 108 40
+           C 102 55, 80 60, 70 50 Z"
+        fill="url(#gold-ribbon)" stroke="#9c6d00" stroke-width="2"/>
+</svg>
