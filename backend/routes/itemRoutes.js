@@ -91,6 +91,51 @@ router.post("/", async (req, res) => {
   }
 });
 
+// 3b) Item updaten (alleen description + url van EIGEN item)
+router.put("/:id", async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const { description, url } = req.body;
+
+    // 1. Item ophalen
+    const item = await Item.findById(itemId);
+    if (!item) {
+      return res.status(404).json({ message: "Item niet gevonden" });
+    }
+
+    // 2. Check: is dit item van de huidige user?
+    if (item.owner.toString() !== req.user.id) {
+      return res
+        .status(403)
+        .json({ message: "Je mag dit item niet aanpassen" });
+    }
+
+    // 3. Alleen description + url updaten (name blijft dus zoals hij is)
+    if (typeof description !== "undefined") {
+      item.description = description;
+    }
+    if (typeof url !== "undefined") {
+      item.url = url;
+    }
+
+    const updated = await item.save();
+
+    // 4. Zelfde shape als de andere item-responses
+    return res.json({
+      id: updated._id.toString(),
+      name: updated.name,
+      description: updated.description,
+      url: updated.url,
+      imageUrl: updated.imageUrl,
+    });
+  } catch (err) {
+    console.error("Update item error:", err);
+    return res
+      .status(500)
+      .json({ message: "Er ging iets mis bij het updaten" });
+  }
+});
+
 // 4) Item claimen (reserveren)
 router.post("/:itemId/claim", async (req, res) => {
   try {
