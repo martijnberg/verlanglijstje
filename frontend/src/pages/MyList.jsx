@@ -100,7 +100,7 @@ export default function MyList() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-6">
+    <div className="min-h-screen bg-slate-900 text-white p-6 overflow-x-hidden">
       <div className="max-w-xl mx-auto space-y-6">
         <h1 className="text-3xl font-bold mb-2">Mijn lijstje 🎁</h1>
         <p className="text-slate-300 text-sm">

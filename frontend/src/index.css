@@ -13,6 +13,12 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Basis-typografie, de rest doe je met Tailwind */
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
