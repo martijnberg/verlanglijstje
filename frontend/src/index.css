@@ -13,10 +13,41 @@ body {
   overflow-x: hidden;
 }
 
+/* Voorkom horizontaal scrollen en zoom op mobiel */
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y pinch-zoom;
+  position: relative;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
+}
+
 #root {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+}
+
+/* Voorkom dat elementen breder worden dan het scherm */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Zorg dat images niet te breed worden */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Basis-typografie, de rest doe je met Tailwind */

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
-
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export default function MyList() {
   const [items, setItems] = useState([]);
@@ -100,13 +100,12 @@ export default function MyList() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-6 overflow-x-hidden">
-      <div className="max-w-xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold mb-2">Mijn lijstje 🎁</h1>
-        <p className="text-slate-300 text-sm">
-          Voeg cadeautjes toe aan je lijst. Anderen kunnen ze zien en
-          reserveren, maar jij ziet niet wie wat gekocht heeft. 😉
-        </p>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold mb-2">Mijn lijstje 🎁</h1>
+      <p className="text-slate-300 text-sm">
+        Voeg cadeautjes toe aan je lijst. Anderen kunnen ze zien en
+        reserveren, maar jij ziet niet wie wat gekocht heeft. 😉
+      </p>
 
         {/* Form card: nieuw item */}
         <form
@@ -236,6 +235,6 @@ export default function MyList() {
           )}
         </div>
       </div>
-    </div>
+ 
   );
 }

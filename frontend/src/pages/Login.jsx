@@ -1,6 +1,7 @@
 import { useState } from "react";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+
 export default function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +20,7 @@ export default function Login({ onLogin }) {
 
       const data = await res.json();
       if (!res.ok) {
-        setError(data.message || "Login failed");
+        setError(data.message || "Login failed"); 
         return;
       }
 

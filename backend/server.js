@@ -32,8 +32,8 @@ app.get("/api/health", (req, res) => {
 async function start() {
   await connectDB();
 
-  const port = process.env.PORT || 5001;
-  app.listen(port, () => {
+  const port = APP_CONFIG.port;
+  app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
   });
 }

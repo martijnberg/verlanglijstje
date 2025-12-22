@@ -12,41 +12,43 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-slate-900 text-white overflow-x-hidden">
       {/* Header / nav */}
-      <header className="border-b border-slate-700 px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-lg sm:text-xl font-semibold">
-            Verlanglijstje 🎁
-          </h1>
-          <p className="text-slate-300 text-xs sm:text-sm">
-            Ingelogd als <span className="font-medium">{user.displayName}</span>
-          </p>
-        </div>
+      <header className="border-b border-slate-700 py-3">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-lg sm:text-xl font-semibold">
+              Verlanglijstje 🎁
+            </h1>
+            <p className="text-slate-300 text-xs sm:text-sm">
+              Ingelogd als <span className="font-medium">{user.displayName}</span>
+            </p>
+          </div>
 
-        <div className="flex gap-2">
-          <button
-            className={`px-3 py-1 rounded text-sm ${
-              view === "my" ? "bg-blue-600" : "bg-slate-700 hover:bg-slate-600"
-            }`}
-            onClick={() => setView("my")}
-          >
-            Mijn lijst
-          </button>
-          <button
-            className={`px-3 py-1 rounded text-sm ${
-              view === "others"
-                ? "bg-blue-600"
-                : "bg-slate-700 hover:bg-slate-600"
-            }`}
-            onClick={() => setView("others")}
-          >
-            Andermans lijstjes
-          </button>
+          <div className="flex gap-2">
+            <button
+              className={`px-3 py-1 rounded text-sm ${
+                view === "my" ? "bg-blue-600" : "bg-slate-700 hover:bg-slate-600"
+              }`}
+              onClick={() => setView("my")}
+            >
+              Mijn lijst
+            </button>
+            <button
+              className={`px-3 py-1 rounded text-sm ${
+                view === "others"
+                  ? "bg-blue-600"
+                  : "bg-slate-700 hover:bg-slate-600"
+              }`}
+              onClick={() => setView("others")}
+            >
+              Andermans lijstjes
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="p-6">
+      <main className="max-w-6xl mx-auto px-4 py-6">
         {view === "my" && <MyList />}
         {view === "others" && <OtherLists currentUser={user} />}
       </main>
